@@ -3,29 +3,27 @@
 **TEST OBJECTIVE:**
 Objective the Online Learning Management system, Make sure that the online training management system satisfies all functional requirements, operates efficiently even under heavy usage, is secure, and delivers a high-quality user experience. This involves verifying that the system fulfills all intended functions, performs well when many users access it simultaneously, protects against security threats, and is intuitive and pleasant for users to interact with.
 
-**QA Report for Online Learning Management system**
-
 Date: August 4, 2024
 Prepared by: AJITHKUMAR SIVAKUMAR
 Project Version: 1.0.0
 
-**Code Editor**
+**Code Editor:**
 PyCharm 2024.1.4
 
-**Libraries and Frameworks**
+**Libraries and Frameworks:**
 python 3.13.3
 pip 24.0
 Selenium 4.20.0
 Pytest 8.3.2
 
-**Summary**
+**Summary:**
 Total Test Cases Executed: 100
 Total Passed: 80
 Total Failed: 18
 Total Blocked: 2
 Total Not Executed: 0
 
-**Defects Overview**
+**Defects Overview:**
 DEF-101	
 Critical	SQL Injection vulnerability in login form	
 Open	
@@ -38,7 +36,7 @@ Closed
 Dev Team	
 Resolved 
 
-**Test Case Results**
+**Test Case Results:**
 TC-001	
 Login with valid credentials	
 Passed	
