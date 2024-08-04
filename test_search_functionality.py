@@ -1,4 +1,4 @@
-# Add sample CSS and elements and comments to get understand.
+# Add sample CSS, elements and comments to get understand.
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
