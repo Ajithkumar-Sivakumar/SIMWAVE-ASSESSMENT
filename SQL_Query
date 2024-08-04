@@ -1,3 +1,4 @@
+# Rank students based on the average quiz result per course
 WITH AvgScores AS (
 
     SELECT
@@ -22,16 +23,22 @@ RankedStudents AS (
     FROM
         AvgScores
 ),
-TopStudents AS (
-    -- Select top 5 students per course
-    SELECT
-        CourseID,
-        UserID
-    FROM
-        RankedStudents
-    WHERE
-        Rank <= 5
-),
+# Identify the top five in each day
+SELECT
+    CourseID,
+    UserID,
+    AttemptDate,
+    AvgScore,
+    Rank
+FROM
+    RankedStudents
+WHERE
+    AttemptDate = CURDATE() 
+    AND Rank <= 5
+ORDER BY
+    CourseID,
+    Rank;
+# Rank the top instructors according to the number of their students existing in top scores per quizzes.
 InstructorStudentCount AS (
 
     SELECT
