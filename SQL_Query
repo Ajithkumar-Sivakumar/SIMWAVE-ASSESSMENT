@@ -1,0 +1,56 @@
+WITH AvgScores AS (
+
+    SELECT
+        e.CourseID,
+        e.UserID,
+        AVG(qa.Score) AS AvgScore
+    FROM
+        Enrollment e
+        JOIN QuizAttempt qa ON e.UserID = qa.UserID
+        JOIN Quiz q ON qa.QuizID = q.QuizID
+    GROUP BY
+        e.CourseID,
+        e.UserID
+),
+RankedStudents AS (
+
+    SELECT
+        CourseID,
+        UserID,
+        AvgScore,
+        ROW_NUMBER() OVER (PARTITION BY CourseID ORDER BY AvgScore DESC) AS Rank
+    FROM
+        AvgScores
+),
+TopStudents AS (
+    -- Select top 5 students per course
+    SELECT
+        CourseID,
+        UserID
+    FROM
+        RankedStudents
+    WHERE
+        Rank <= 5
+),
+InstructorStudentCount AS (
+
+    SELECT
+        u.UserID AS InstructorID,
+        COUNT(DISTINCT ts.UserID) AS TopStudentCount
+    FROM
+        TopStudents ts
+        JOIN Enrollment e ON ts.UserID = e.UserID
+        JOIN Course c ON e.CourseID = c.CourseID
+        JOIN User u ON c.InstructorID = u.UserID
+    GROUP BY
+        u.UserID
+)
+
+SELECT
+    i.UserID AS InstructorID,
+    i.Username AS InstructorName,
+    isc.TopStudentCount,
+    ROW_NUMBER() OVER (ORDER BY isc.TopStudentCount DESC) AS InstructorRank
+FROM
+    InstructorStudentCount isc
+    JOIN User i ON isc.InstructorID = i.UserID;
